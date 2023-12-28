@@ -1,0 +1,46 @@
+version: '3'
+services:
+  database:
+    image: postgres:12-alpine
+    env_file:
+      - .env
+    container_name: db-service
+    volumes:
+      - database:/var/lib/postgresql/data
+    networks:
+      - backend-network
+    ports:
+      - '5432:5432'
+    restart: on-failure
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: backend
+    env_file:
+      - .env
+    depends_on:
+      - database
+    container_name: backend-service
+    networks:
+      - backend-network
+    ports:
+      - '4000:3000'
+    restart: on-failure
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - BACKEND_URL=${BACKEND_URL}
+    image: frontend
+    depends_on:
+      - backend
+    container_name: frontend-service
+    ports:
+      - '4001:80'
+    restart: on-failure
+networks:
+  backend-network:
+volumes:
+  database:

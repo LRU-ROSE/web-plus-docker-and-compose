@@ -1,3 +1,4 @@
 # Докеризация приложения
 
-Перед тем как приступить к выполнению проектной работы разместите в репозитории исходный код фронтенд и бэкенд частей сервиса КупиПодариДай, реализованного вами ранее. 
+- Frontend: https://project.nomoredomainsmonster.ru
+- Backend: https://api.project.nomoredomainsmonster.ru
